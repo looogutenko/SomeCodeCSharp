@@ -9,7 +9,7 @@ namespace SomeCode
     {
         public static void Main()
         {
-            Console.WriteLine(DuplicateCount("aabbcde"));
+            Console.WriteLine(Persistence(999));
         }
 
 
@@ -46,5 +46,31 @@ namespace SomeCode
                 .Where(count => count > 1)
                 .Count();
         }
+
+        public static int DuplicateCount1(string str) => str
+            .ToLower()
+            .GroupBy(letter => letter)
+            .Where(g => g.Count() > 1)
+            .Count();
+
+        public static int Persistence(long n)
+        {
+            int persistence = 0;
+
+            while (n > 9)
+            {
+                n = Convert.ToString(n)
+                .ToCharArray()
+                .Select(num => (int) Char.GetNumericValue(num))
+                .ToList<int>()
+                .Aggregate((x, y) => x * y);
+
+                persistence++;
+            }
+
+            return persistence;
+        }
+      
+
     }
 }
